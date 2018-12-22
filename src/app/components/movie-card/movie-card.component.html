@@ -1,0 +1,27 @@
+<mat-card
+  class="movie-card"
+  (click)="showMovieInfo()"
+>
+  <div
+    class="movie-adult-sign"
+    *ngIf="movie.adult"
+  >
+    18+
+  </div>
+  <app-movie-favourite-star
+    [ngClass]="!movie.adult ? 'movie-star-centered' : ''"
+    [movie_id]="movie.id"
+    [movie_title]="movie.title"
+  ></app-movie-favourite-star>
+  <mat-card-header>
+    <mat-card-title class="movie-card__title">
+      {{ movie.title }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <img width="300" height="170" src="https://image.tmdb.org/t/p/w300{{movie.backdrop_path || movie.poster_path}}">
+  </mat-card-content>
+  <mat-card-footer class="movie-card__footer">
+    <app-movie-genres [movieGenresIds]="movie.genre_ids"></app-movie-genres>
+  </mat-card-footer>
+</mat-card>

@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body {
+  margin: 0;
+}
+
+.movie-title {
+  display: inline-block;
+}
+
+.movie-adult-sign {
+  padding: 10px 5px;
+  position: absolute;
+  background: #8b0000;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 25px;
+}
+
+.flex_center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex_column {
+  flex-direction: column;
+}

@@ -1,0 +1,42 @@
+.movie-title {
+  text-align: center;
+}
+
+.movie-adult-sign {
+  top: 10px;
+  right: 0px;
+}
+
+.movie-page {
+  background: #efefef;
+}
+
+app-movie-favourite-star {
+  position: absolute;
+  top: 60px;
+  right: -6px;
+}
+
+.movie-star-centered {
+  top: 30px;
+}
+
+.movies-recommended-panel {
+  background-color: #5f9ea0;
+}
+
+.movie-noInfo {
+  padding: 10px;
+  text-align: center;
+}
+
+.info-content {
+  display: inline-block;
+  max-width: 500px;
+}
+
+.movie-overview {
+  max-width: 75vh;
+  padding: 30px;
+  text-align: center;
+}

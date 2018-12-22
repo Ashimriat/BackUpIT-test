@@ -1,0 +1,10 @@
+.welcome-page {
+  background: #778899;
+  height: calc(100vh - 48px) !important;
+  color: #ffffff;
+}
+
+.welcome-page__list mat-list-item {
+  color: #ffffff;
+  font-size: 20px;
+}

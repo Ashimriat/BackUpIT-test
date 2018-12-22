@@ -1,0 +1,5 @@
+<div
+  (click)="toggleFavourite($event)"
+  [ngClass]="['movie-favourite', isFavourite ? 'movie-favourite_filled' : 'movie-favourite_empty']"
+  [matTooltip]="isFavourite ? 'Click to remove from favourite' : 'Click to add to favourite'"
+></div>

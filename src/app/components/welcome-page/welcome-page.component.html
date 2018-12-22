@@ -1,0 +1,37 @@
+<mat-grid-list
+  cols="2"
+  rowHeight="100px"
+  class="welcome-page"
+>
+  <mat-grid-tile
+    [colspan]="2"
+    class="mat-display-2"
+  >
+    Welcome to the Movies App!
+  </mat-grid-tile>
+
+  <mat-grid-tile [rowspan]="6">
+    <mat-list class="welcome-page__list">
+      <p class="mat-display-1">Here you can:</p>
+      <mat-list-item
+        *ngFor="let ability of abilitiesList; let i = index"
+        class="mat-display-2 welcome-page__list"
+      >
+        {{ i + 1 }}.&nbsp;{{ ability}}.
+      </mat-list-item>
+    </mat-list>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="6">
+    <img
+      width="400"
+      height="600"
+      src="assets/camera.png"
+    >
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="2"
+    class="mat-display-2"
+  >
+    Hope you will enjoy it!
+  </mat-grid-tile>
+</mat-grid-list>

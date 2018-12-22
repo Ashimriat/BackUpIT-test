@@ -1,0 +1,11 @@
+.movies-list {
+  height: calc(100vh - 173px) !important;
+  overflow-y: auto;
+  background: #ececec;
+}
+
+.movies-list-pagination {
+  background: #D5AF62;
+  color: rgba(0,0,0, 0.6);
+}
+

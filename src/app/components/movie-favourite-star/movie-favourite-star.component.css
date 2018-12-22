@@ -1,0 +1,25 @@
+.movie-favourite {
+  font-size: 2.5rem;
+  width: 2.5rem;
+  height: 2rem;
+  display: block;
+  overflow: hidden;
+}
+
+.movie-favourite:hover {
+  cursor: pointer;
+}
+
+.movie-favourite_empty:before {
+  color: #CBCB9A;
+  content: "\2605";
+  position: relative;
+  top: -15px;
+}
+
+.movie-favourite_filled:before {
+  color: #f2b01e;
+  content: "\2605";
+  position: relative;
+  top: -15px;
+}

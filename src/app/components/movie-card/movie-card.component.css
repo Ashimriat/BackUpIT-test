@@ -1,0 +1,42 @@
+.movie-adult-sign {
+  top: 15px;
+  right: 15px;
+}
+
+app-movie-favourite-star {
+  position: absolute;
+  top: 70px;
+  right: 10px;
+}
+
+.movie-star-centered {
+  top: 10px;
+}
+
+.movie-card {
+  background: #efefef;
+  border: 1px solid #778899;
+  width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.movie-card:hover {
+  cursor: pointer;
+}
+
+.movie-card__title {
+  max-width: 330px;
+  text-align: center;
+}
+
+.movie-card__subtitle {
+  max-width: 300px;
+  text-align: center;
+}
+
+.movie-card__footer {
+  padding-bottom: 10px;
+}

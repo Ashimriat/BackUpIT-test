@@ -1,0 +1,14 @@
+.movie-genres-list {
+  pointer-events: none;
+}
+
+.mat-chip.mat-standard-chip {
+  background: #D5AF62;
+  color: #000000;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.mat-chip.mat-standard-chip:hover {
+  background: #D5AF62;
+}

@@ -1,0 +1,127 @@
+<app-loader
+  *ngIf="loading; else information"
+  [text]="'Obtaining movie information...'"
+></app-loader>
+<ng-template #information>
+  <div
+    *ngIf="!movieInfo; else success"
+    class="movie-noInfo mat-h2"
+  >
+    No movie info available.
+  </div>
+  <ng-template #success>
+    <mat-grid-list
+      class="movie-page"
+      cols="3"
+      rowHeight="100px"
+    >
+      <mat-grid-tile>
+        <mat-grid-list
+          cols="1"
+          rowHeight="fit"
+          style="width: 100%; height: 100%"
+        >
+          <mat-grid-tile
+            class="mat-h1 movie-title"
+            [rowspan]="movieInfo.original_title !== movieInfo.title ? 2 : 1"
+          >
+            {{ movieInfo.title }}
+          </mat-grid-tile>
+          <mat-grid-tile
+            *ngIf="movieInfo.original_title !== movieInfo.title"
+            class="mat-h2"
+          >
+            {{ movieInfo.original_title }}
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div
+          *ngIf="movieInfo.adult"
+          class="movie-adult-sign"
+        >
+          18+
+        </div>
+        <app-movie-favourite-star
+          [ngClass]="!movieInfo.adult ? 'movie-star-centered': ''"
+          [movie_id]="movieInfo.id"
+          [movie_title]="movieInfo.title"
+        ></app-movie-favourite-star>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="2">
+        <p>Average user vote:&nbsp;</p>
+        <p>{{movieInfo.vote_average}} out of 10</p>
+      </mat-grid-tile>
+      <mat-grid-tile [rowspan]="6">
+        <img src="https://image.tmdb.org/t/p/w400{{ movieInfo.poster_path }}">
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="2"
+        [rowspan]="6"
+      >
+        <mat-list>
+          <h3 mat-header>
+            Information
+          </h3>
+          <mat-list-item *ngFor="let info of movieInfoList">
+            <b class="info-title">{{info.fieldName}}:&nbsp;</b>
+            <p>{{info.value}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <b class="info-title">
+              Production countries:&nbsp;
+            </b>
+            <p>
+          <span *ngFor="let country of movieInfo.production_countries; let i = index">
+            {{country.name}}{{i + 1 < movieInfo.production_countries.length ? ', ' : ''}}
+          </span>
+            </p>
+          </mat-list-item>
+          <mat-list-item>
+            <b class="info-title">
+              Production companies:&nbsp;
+            </b>
+            <p class="info-content">
+              <span *ngFor="let company of movieInfo.production_companies; let i = index">
+                {{company.name}}{{i + 1 < movieInfo.production_companies.length ? ', ' : ''}}
+              </span>
+            </p>
+          </mat-list-item>
+          <mat-list-item>
+            <b class="info-title">
+              Genres:&nbsp;
+            </b>
+            <app-movie-genres [movieGenres]="movieInfo.genres"></app-movie-genres>
+          </mat-list-item>
+        </mat-list>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="3">
+        <p class="movie-overview">
+          {{ movieInfo.overview }}
+        </p>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-accordion>
+      <mat-expansion-panel
+        class="movies-recommended-panel"
+        (opened)="showRecommended"
+        (closed)="!showRecommended"
+        (click)="toggleRecommended()"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Recommended
+          </mat-panel-title>
+          <mat-panel-description>
+            Movies which can be interesting for you
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <app-movie-list
+      [ngStyle]="{'display': showRecommended ? 'inherit' : 'none'}"
+      [getMovies]="getRecommendedMovies.bind(this)"
+    ></app-movie-list>
+  </ng-template>
+
+</ng-template>
+
+
