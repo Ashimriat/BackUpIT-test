@@ -2,20 +2,22 @@
   *ngIf="loading; else information"
   [text]="'Obtaining movie information...'"
 ></app-loader>
+
 <ng-template #information>
   <div
     *ngIf="!movieInfo; else success"
-    class="movie-noInfo mat-h2"
+    class="no-info mat-h2"
   >
     No movie info available.
   </div>
+
   <ng-template #success>
     <mat-grid-list
       class="movie-page"
-      cols="3"
-      rowHeight="100px"
+      cols="8"
+      rowHeight="111px"
     >
-      <mat-grid-tile>
+      <mat-grid-tile [colspan]="3">
         <mat-grid-list
           cols="1"
           rowHeight="fit"
@@ -46,16 +48,50 @@
           [movie_title]="movieInfo.title"
         ></app-movie-favourite-star>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]="2">
+      <mat-grid-tile [colspan]="3">
         <p>Average user vote:&nbsp;</p>
         <p>{{movieInfo.vote_average}} out of 10</p>
       </mat-grid-tile>
-      <mat-grid-tile [rowspan]="6">
-        <img src="https://image.tmdb.org/t/p/w400{{ movieInfo.poster_path }}">
+      <mat-grid-tile
+        class="movie-recommendations"
+        [colspan]="2"
+        [rowspan]="8"
+      >
+        <div class="recommended-section">
+          <mat-expansion-panel
+            class="recommended-section__panel"
+            (opened)="showRecommended"
+            (closed)="!showRecommended"
+            (click)="toggleRecommended()"
+          >
+            <mat-expansion-panel-header class="recommended-section__header">
+              <mat-panel-title>
+                Recommended
+              </mat-panel-title>
+              <mat-panel-description>
+                Movies which can be interesting for you
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+          <app-movie-list
+            *ngIf="recommendedFirstShow"
+            [ngStyle]="{'display': showRecommended ? 'block' : 'none'}"
+            [getMovies]="getRecommendedMovies.bind(this)"
+          ></app-movie-list>
+        </div>
       </mat-grid-tile>
       <mat-grid-tile
-        [colspan]="2"
-        [rowspan]="6"
+        [colspan]="3"
+        [rowspan]="5"
+      >
+        <img
+          height="510"
+          [src]="imagePath"
+        >
+      </mat-grid-tile>
+      <mat-grid-tile
+        [colspan]="3"
+        [rowspan]="5"
       >
         <mat-list>
           <h3 mat-header>
@@ -85,7 +121,7 @@
               </span>
             </p>
           </mat-list-item>
-          <mat-list-item>
+          <mat-list-item *ngIf="movieInfo.genres.length">
             <b class="info-title">
               Genres:&nbsp;
             </b>
@@ -93,35 +129,17 @@
           </mat-list-item>
         </mat-list>
       </mat-grid-tile>
-      <mat-grid-tile [colspan]="3">
+      <mat-grid-tile
+        class="movie-overview-container"
+        [colspan]="6"
+        [rowspan]="2"
+      >
         <p class="movie-overview">
           {{ movieInfo.overview }}
         </p>
       </mat-grid-tile>
     </mat-grid-list>
-    <mat-accordion>
-      <mat-expansion-panel
-        class="movies-recommended-panel"
-        (opened)="showRecommended"
-        (closed)="!showRecommended"
-        (click)="toggleRecommended()"
-      >
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Recommended
-          </mat-panel-title>
-          <mat-panel-description>
-            Movies which can be interesting for you
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-      </mat-expansion-panel>
-    </mat-accordion>
-    <app-movie-list
-      [ngStyle]="{'display': showRecommended ? 'inherit' : 'none'}"
-      [getMovies]="getRecommendedMovies.bind(this)"
-    ></app-movie-list>
   </ng-template>
-
 </ng-template>
 
 

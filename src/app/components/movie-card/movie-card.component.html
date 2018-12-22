@@ -19,7 +19,11 @@
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <img width="300" height="170" src="https://image.tmdb.org/t/p/w300{{movie.backdrop_path || movie.poster_path}}">
+    <img
+      width="300"
+      height="170"
+      [src]="this.imagePath"
+    >
   </mat-card-content>
   <mat-card-footer class="movie-card__footer">
     <app-movie-genres [movieGenresIds]="movie.genre_ids"></app-movie-genres>

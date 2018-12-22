@@ -12,8 +12,13 @@ import { setCurrentMovie } from '../../modules/store/actions';
 export class MovieCardComponent implements OnInit {
   @Input() movie: MovieShort;
   @dispatch() setCurrentMovie = setCurrentMovie;
+  imagePath = '';
   constructor() { }
-  ngOnInit() {}
+  ngOnInit() {
+    this.imagePath = !this.movie.backdrop_path && !this.movie.poster_path ?
+      'assets/placeholder.png'
+      : `https://image.tmdb.org/t/p/w300${this.movie.backdrop_path || this.movie.poster_path}`;
+  }
   showMovieInfo() {
     this.setCurrentMovie(this.movie.id);
   }

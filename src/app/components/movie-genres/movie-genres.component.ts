@@ -8,6 +8,7 @@ import {Genre} from '../../../interfaces';
   templateUrl: './movie-genres.component.html',
   styleUrls: ['./movie-genres.component.css']
 })
+
 export class MovieGenresComponent implements OnInit {
   @select() genres$: Observable<Array<Genre>>;
   @Input() movieGenresIds?: Array<number>;
@@ -25,5 +26,4 @@ export class MovieGenresComponent implements OnInit {
       this.genresList = this.movieGenres.map(genre => genre.name);
     }
   }
-
 }

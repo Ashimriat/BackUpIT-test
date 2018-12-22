@@ -38,15 +38,20 @@
     ></app-movie-list>
   </mat-tab>
   <mat-tab label="Your favourite movies">
-    <div *ngIf="!(favourite$ | async).length; else favouriteMovies">
-      You haven't added any movies in favourite yet.
+    <div
+      *ngIf="!(favourite$ | async).length; else favouriteMovies"
+      class="no-info mat-h2"
+    >
+      You haven't marked any movies as favourite yet.
     </div>
+
     <ng-template #favouriteMovies>
-      <mat-list>
+      <mat-list class="favourites-list">
         <mat-list-item *ngFor="let favouriteMovie of (favourite$ | async); let i = index;">
           <p
             class="mat-title favourite-position"
             (click)="setCurrentMovie(favouriteMovie.id)"
+            [matTooltip]="'Click to see movie info'"
           >
             {{ i + 1 }}.&nbsp;{{favouriteMovie.title}}
           </p>

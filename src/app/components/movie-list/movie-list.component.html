@@ -2,10 +2,15 @@
   *ngIf="loading; else list"
   [text]="'Obtaining movies...'"
 ></app-loader>
+
 <ng-template #list>
-  <div *ngIf="!movies || (movies && movies.results && movies.results.length === 0); else moviesList">
-    Can't find any movies, please try again later
+  <div
+    class="no-info mat-h2"
+    *ngIf="!movies || (movies && movies.results && movies.results.length === 0); else moviesList"
+  >
+    Can't find any movies.
   </div>
+
   <ng-template #moviesList>
     <mat-grid-list
       class="movies-list"

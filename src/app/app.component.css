@@ -1,6 +1,6 @@
 .movie-search-field {
   height: 49px;
-  padding: 10px 10px 10px 20px;
+  padding: 3px 10px 10px 20px;
   border-bottom: 2px solid #efefef;
   background: #CBCB9A;
 }
@@ -37,4 +37,8 @@ app-movie-favourite-star {
 
 .favourite-position:hover {
   cursor: pointer;
+}
+
+.favourites-list {
+  height: calc(100vh - 56px);
 }

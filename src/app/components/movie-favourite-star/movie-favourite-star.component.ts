@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
   templateUrl: './movie-favourite-star.component.html',
   styleUrls: ['./movie-favourite-star.component.css']
 })
+
 export class MovieFavouriteStarComponent implements OnInit {
   @Input() movie_id: number;
   @Input() movie_title: string;

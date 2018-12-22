@@ -1,6 +1,6 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import {MoviesList} from '../../../interfaces';
-import {PageEvent} from '@angular/material';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { MoviesList } from '../../../interfaces';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-movie-list',
@@ -10,6 +10,7 @@ import {PageEvent} from '@angular/material';
 
 export class MovieListComponent implements OnInit, OnChanges {
   @Input() getMovies: Function;
+  @Input() startMovies?: MoviesList;
   @Input() searchValue?: string;
   movies: MoviesList;
   loading = false;
@@ -19,7 +20,9 @@ export class MovieListComponent implements OnInit, OnChanges {
     this.currentPage = 0;
   }
   ngOnInit() {
-    this.obtainNewMovies();
+    if (!this.startMovies) {
+      this.obtainNewMovies();
+    }
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.searchValue && changes.searchValue.currentValue !== changes.searchValue.previousValue) {

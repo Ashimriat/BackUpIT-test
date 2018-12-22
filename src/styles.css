@@ -19,12 +19,7 @@ body {
   border-radius: 25px;
 }
 
-.flex_center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex_column {
-  flex-direction: column;
+.no-info {
+  padding: 10px;
+  text-align: center;
 }

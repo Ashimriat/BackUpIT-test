@@ -9,6 +9,7 @@
 
 .movie-page {
   background: #efefef;
+  height: calc(100vh - 48px) !important;
 }
 
 app-movie-favourite-star {
@@ -21,22 +22,41 @@ app-movie-favourite-star {
   top: 30px;
 }
 
-.movies-recommended-panel {
-  background-color: #5f9ea0;
-}
-
-.movie-noInfo {
-  padding: 10px;
-  text-align: center;
-}
-
 .info-content {
   display: inline-block;
   max-width: 500px;
+}
+
+.movie-overview-container {
+  max-height: 200px;
 }
 
 .movie-overview {
   max-width: 75vh;
   padding: 30px;
   text-align: center;
+}
+
+.movie-recommendations {
+  height: calc(100vh - 48px) !important;
+}
+
+.recommended-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.recommended-section__panel {
+  width: 100%;
+  background-color: #5f9ea0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.recommended-section__header {
+  padding: 0;
 }
