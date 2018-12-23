@@ -12,6 +12,7 @@ import { setCurrentMovie, addGenres, setError } from './modules/store/actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   @select() favourite$: Observable<Array<number>>;
   @select() currentMovie$: Observable<number>;

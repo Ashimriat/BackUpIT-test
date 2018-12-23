@@ -14,7 +14,7 @@ import {environment} from '../../../environments/environment';
 })
 
 export class StoreModule {
-  constructor(store: NgRedux<State>) {
+  constructor(public store: NgRedux<State>) {
     store.configureStore(
       rootReducer,
       defaultState,

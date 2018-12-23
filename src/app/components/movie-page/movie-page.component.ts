@@ -20,15 +20,15 @@ export class MoviePageComponent implements OnInit {
   imagePath = '';
   showRecommended = false;
   recommendedFirstShow = false;
-  loading = false;
+  loading = true;
   @dispatch() setError = setError;
   constructor() {
     this.movieInfoList = [];
     this.movieId = -1;
   }
   ngOnInit() {
-    this.loading = true;
     this.currentMovie$.subscribe(movieId => {
+      this.loading = true;
       this.showRecommended = false;
       this.recommendedFirstShow = false;
       this.movieId = movieId;
@@ -40,6 +40,7 @@ export class MoviePageComponent implements OnInit {
         })
         .catch(error => {
           this.setError(`Couldn't obtain movie information due to server error, please try again later`);
+          this.loading = false;
           console.log(error);
         });
     });

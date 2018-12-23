@@ -16,8 +16,8 @@ export class MovieCardComponent implements OnInit {
   constructor() { }
   ngOnInit() {
     this.imagePath = !this.movie.backdrop_path && !this.movie.poster_path ?
-      'assets/placeholder.png'
-      : `https://image.tmdb.org/t/p/w300${this.movie.backdrop_path || this.movie.poster_path}`;
+      'assets/placeholder.png' :
+      `https://image.tmdb.org/t/p/w300${this.movie.backdrop_path || this.movie.poster_path}`;
   }
   showMovieInfo() {
     this.setCurrentMovie(this.movie.id);
