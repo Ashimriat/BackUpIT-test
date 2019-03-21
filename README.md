@@ -27,7 +27,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 
+
+
+
 1. Clone repository
-2. Go to backup-it-test-app folder
+2. Go to BackUpIT-test folder
 3. Run in cmd following commands one by one: npm install, npm run serve
 4. Your browser will open localhost:4200 with app.
