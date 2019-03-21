@@ -29,5 +29,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 1. Clone repository
 2. Go to backup-it-test-app folder
-3. Run in cmd following commands one by one: npm install, npm install @angular/cli -g, ng serve -o
+3. Run in cmd following commands one by one: npm install, npm run serve
 4. Your browser will open localhost:4200 with app.
