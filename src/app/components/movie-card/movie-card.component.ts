@@ -6,20 +6,21 @@ import { setCurrentMovie } from '../../modules/store/actions';
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
-  styleUrls: ['./movie-card.component.css']
+  styleUrls: ['./movie-card.component.sass']
 })
 
 export class MovieCardComponent implements OnInit {
   @Input() movie: MovieShort;
-  @dispatch() setCurrentMovie = setCurrentMovie;
-  imagePath = '';
+  public imagePath = '';
+  @dispatch() setCurrentMovie = (movieId: number) => setCurrentMovie(movieId);
+
   constructor() { }
-  ngOnInit() {
-    this.imagePath = !this.movie.backdrop_path && !this.movie.poster_path ?
-      'assets/placeholder.png' :
-      `https://image.tmdb.org/t/p/w300${this.movie.backdrop_path || this.movie.poster_path}`;
-  }
-  showMovieInfo() {
-    this.setCurrentMovie(this.movie.id);
+
+  public ngOnInit(): void {
+    if (!this.movie.backdrop_path && !this.movie.poster_path) {
+      this.imagePath = 'assets/images/placeholder.png';
+    } else {
+      this.imagePath = `https://image.tmdb.org/t/p/w300${this.movie.backdrop_path || this.movie.poster_path}`;
+    }
   }
 }

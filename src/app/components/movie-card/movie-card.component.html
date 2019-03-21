@@ -1,31 +1,31 @@
 <mat-card
-  class="movie-card"
-  (click)="showMovieInfo()"
+  class="movieCard"
+  (click)="setCurrentMovie(movie.id)"
 >
   <div
-    class="movie-adult-sign"
+    class="movieAdultSign movieCard__adultSign"
     *ngIf="movie.adult"
   >
     18+
   </div>
-  <app-movie-favourite-star
-    [ngClass]="!movie.adult ? 'movie-star-centered' : ''"
+  <app-favourite-star
+    class="movieCard__star"
+    [ngClass]="{'movieCard__star--top': !movie.adult}"
     [movie_id]="movie.id"
     [movie_title]="movie.title"
-  ></app-movie-favourite-star>
+  ></app-favourite-star>
   <mat-card-header>
-    <mat-card-title class="movie-card__title">
+    <mat-card-title class="movieCard__title">
       {{ movie.title }}
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <img
-      width="300"
-      height="170"
-      [src]="this.imagePath"
+      class="movieCard__image"
+      [src]="imagePath"
     >
   </mat-card-content>
-  <mat-card-footer class="movie-card__footer">
+  <mat-card-footer class="movieCard__footer">
     <app-movie-genres [movieGenresIds]="movie.genre_ids"></app-movie-genres>
   </mat-card-footer>
 </mat-card>

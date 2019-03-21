@@ -9,59 +9,10 @@
     <app-welcome-page></app-welcome-page>
   </mat-tab>
   <mat-tab label="Popular movies">
-    <div class="movie-search-field">
-      <p class="mat-h2 movie-search-field-title ">
-        Search for movie
-      </p>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Genre or movie title"
-          [ngModel]="inputValue"
-          (ngModelChange)="changeSearchValue($event)"
-        >
-      </mat-form-field>
-      <mat-icon class="movie-search-icon">
-        search
-      </mat-icon>
-      <mat-icon
-        class="movie-search-reset"
-        *ngIf="inputValue"
-        (click)="changeSearchValue('')"
-      >
-        close
-      </mat-icon>
-    </div>
-    <app-movie-list
-      [searchValue]="searchValue"
-      [getMovies]="searchValue ? getSearchMovies.bind(this) : getPopularMovies"
-    ></app-movie-list>
+    <app-movies-list [moviesType]="'POPULAR'"></app-movies-list>
   </mat-tab>
   <mat-tab label="Your favourite movies">
-    <div
-      *ngIf="!(favourite$ | async).length; else favouriteMovies"
-      class="no-info mat-h2"
-    >
-      You haven't marked any movies as favourite yet.
-    </div>
-
-    <ng-template #favouriteMovies>
-      <mat-list class="favourites-list">
-        <mat-list-item *ngFor="let favouriteMovie of (favourite$ | async); let i = index;">
-          <p
-            class="mat-title favourite-position"
-            (click)="setCurrentMovie(favouriteMovie.id)"
-            [matTooltip]="'Click to see movie info'"
-          >
-            {{ i + 1 }}.&nbsp;{{favouriteMovie.title}}
-          </p>
-          <app-movie-favourite-star
-            [movie_id]="favouriteMovie.id"
-            [movie_title]="favouriteMovie.title"
-          ></app-movie-favourite-star>
-        </mat-list-item>
-      </mat-list>
-    </ng-template>
+   <app-favourite-movies-list></app-favourite-movies-list>
   </mat-tab>
   <mat-tab
     *ngIf="(currentMovie$ | async) !== -1"

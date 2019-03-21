@@ -1,0 +1,23 @@
+<div class="searchField">
+  <p class="mat-h2 searchField__title">
+    Search for movie
+  </p>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Genre or movie title"
+      [(ngModel)]="inputValue"
+      (ngModelChange)="startSearch()"
+    >
+  </mat-form-field>
+  <mat-icon class="searchField__searchIcon">
+    search
+  </mat-icon>
+  <mat-icon
+    class="searchField__resetIcon"
+    *ngIf="inputValue"
+    (click)="resetInput()"
+  >
+    close
+  </mat-icon>
+</div>

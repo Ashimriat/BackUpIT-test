@@ -1,10 +1,13 @@
-export const formBudget = (budget: number): string => {
+export const formBudget = (budget?: number): string => {
+  if (!budget) {
+    return 'Unknown';
+  };
   const budgetString = `${budget}`;
   if (budgetString.length < 4) {
     return budgetString;
   } else {
     const grade = budgetString.length % 3;
-    return budgetString
+    let budgetResult = budgetString
       .split('')
       .map((char, index) => {
         if (
@@ -21,5 +24,15 @@ export const formBudget = (budget: number): string => {
           return char;
         }
       }).join('');
+    return budgetResult + ' $';
   }
-}
+};
+
+export const formRuntime = (runtime: number): string => {
+  let result = '';
+  if (runtime / 60 > 0) {
+    result += `${Math.floor(runtime / 60)} hours `;
+  }
+  result += `${runtime % 60} minutes`;
+  return result;
+};

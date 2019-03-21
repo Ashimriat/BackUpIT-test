@@ -1,0 +1,29 @@
+<div
+  *ngIf="!(favouriteMovies$ | async).length; else moviesList"
+  class="noInfo mat-h2"
+>
+  You haven't marked any movies as favourite yet.
+</div>
+<ng-template #moviesList>
+<mat-list class="favouriteMoviesList">
+  <mat-list-item
+    *ngFor="
+      let favouriteMovie of (favouriteMovies$ | async);
+      trackBy: listTrackerService.trackList;
+      index as i;
+    "
+  >
+    <p
+      class="mat-title favouriteMoviesList__movie"
+      (click)="setCurrent(favouriteMovie.id)"
+      [matTooltip]="'Click to see movie info'"
+    >
+      {{ i + 1 }}.&nbsp;{{favouriteMovie.title}}
+    </p>
+    <app-favourite-star
+      class="favouriteMoviesList__star"
+      [movie_id]="favouriteMovie.id"
+      [movie_title]="favouriteMovie.title"
+    ></app-favourite-star>
+  </mat-list-item>
+</mat-list>

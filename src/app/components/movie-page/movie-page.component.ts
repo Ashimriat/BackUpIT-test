@@ -1,94 +1,90 @@
-import { Component, OnInit } from '@angular/core';
-import {dispatch, select} from '@angular-redux/store';
-import { Observable } from 'rxjs';
-import {MovieFull, MoviesList} from '../../../interfaces';
-import { API } from '../../../consts';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { dispatch, select } from '@angular-redux/store';
+import { Observable, Subject } from 'rxjs';
+import { MovieFull } from '../../../interfaces';
 import { setError } from '../../modules/store/actions';
-import {formBudget} from '../../../utils';
+import { formBudget, formRuntime } from '../../../utils';
+import { ApiService } from '../../services/api.service';
+import { ListTrackerService } from '../../services/list-tracker.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie-page',
   templateUrl: './movie-page.component.html',
-  styleUrls: ['./movie-page.component.css']
+  styleUrls: ['./movie-page.component.sass']
 })
-
-export class MoviePageComponent implements OnInit {
+export class MoviePageComponent implements OnInit, OnDestroy {
+  public movieId: number;
+  public movieInfo: MovieFull;
+  public movieGenresIds: Array<number>;
+  public movieInfoList: Array<{fieldName: string, value: any}> = [];
+  public imagePath = '';
+  public loading: boolean;
+  public showRecommended: boolean;
+  public recommendedFirstShow: boolean;
+  private _destroyed$ = new Subject();
   @select() currentMovie$: Observable<number>;
-  movieId: number;
-  movieInfo: MovieFull;
-  movieInfoList: Array<{fieldName: string, value: any}>;
-  imagePath = '';
-  showRecommended = false;
-  recommendedFirstShow = false;
-  loading = true;
   @dispatch() setError = setError;
-  constructor() {
+
+  constructor(private apiService: ApiService, public listTrackerService: ListTrackerService) {
     this.movieInfoList = [];
     this.movieId = -1;
   }
-  ngOnInit() {
-    this.currentMovie$.subscribe(movieId => {
-      this.loading = true;
-      this.showRecommended = false;
-      this.recommendedFirstShow = false;
-      this.movieId = movieId;
-      fetch(API.MOVIE_DETAILS(this.movieId))
-        .then(res => res.json())
-        .then(res => {
-          this.preparePageInfo(res);
-          this.loading = false;
-        })
-        .catch(error => {
-          this.setError(`Couldn't obtain movie information due to server error, please try again later`);
-          this.loading = false;
-          console.log(error);
-        });
-    });
+
+  public ngOnInit(): void {
+    this.currentMovie$
+      .pipe(
+        takeUntil(this._destroyed$)
+      )
+      .subscribe(movieId => {
+        this.movieId = movieId;
+        this.loading = true;
+        this.showRecommended = false;
+        this.recommendedFirstShow = false;
+        try {
+          this.preparePageInfo();
+        } catch (e) {
+          this.setError(`Couldn't obtain movie information, please try again later`);
+        } finally {
+          setTimeout(() =>  this.loading = false, 1000);
+        }
+      });
   }
-  preparePageInfo(info: MovieFull) {
-    this.movieInfo = info;
-    this.imagePath = (this.movieInfo && this.movieInfo.poster_path) ?
-      `https://image.tmdb.org/t/p/w400${ this.movieInfo.poster_path }`
-      : 'assets/placeholder.png';
-    this.movieInfoList = [];
-    const infoPointsNames = [
-      'Status', 'Release date', 'Official site',
-      'Tagline', 'Budget', 'Runtime'
+
+  public ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
+  }
+
+  private async preparePageInfo() {
+    this.movieInfo = await this.apiService.makeRequest('DETAILS', this.movieId);
+    this.movieGenresIds = this.movieInfo.genres.map(genre => genre.id);
+    this.imagePath = this.movieInfo.poster_path ?
+      `https://image.tmdb.org/t/p/w400${this.movieInfo.poster_path}` :
+      'assets/images/placeholder.png';
+    const infoNames = [
+      'Status', 'Release date', 'Official site', 'Tagline', 'Budget', 'Runtime'
     ];
-    const infoPointsValues = [
+    const infoValues = [
       this.movieInfo.status,
       this.movieInfo.release_date,
-      `${this.movieInfo.homepage || 'Homepage is absent'}`,
-      `${this.movieInfo.tagline || 'Tagline is absent'}`,
-      `
-              ${this.movieInfo.budget ? formBudget(this.movieInfo.budget) : 'Unknown'}
-              ${this.movieInfo.budget && ' $'}
-            `,
-      `
-              ${this.movieInfo.runtime / 60 > 0 && `${Math.floor(this.movieInfo.runtime / 60)} hours `}
-              ${this.movieInfo.runtime % 60} minutes
-            `
+      this.movieInfo.homepage || 'Homepage is absent',
+      this.movieInfo.tagline || 'Tagline is absent',
+      formBudget(this.movieInfo.budget),
+      formRuntime(this.movieInfo.runtime)
     ];
-    infoPointsNames.forEach((point, index) => {
+    infoNames.forEach((point, index) => {
       this.movieInfoList.push({
         fieldName: point,
-        value: infoPointsValues[index]
+        value: infoValues[index]
       });
     });
   }
-  toggleRecommended() {
+
+  public toggleRecommended(): void {
     if (!this.recommendedFirstShow) {
       this.recommendedFirstShow = true;
     }
     this.showRecommended = !this.showRecommended;
-  }
-  getRecommendedMovies(sucCallback: Function, errCallback: Function, page: number = 1) {
-    fetch(API.MOVIE_RECOMMENDATIONS(this.movieId, page))
-      .then(res => res.json())
-      .then(res => sucCallback(res))
-      .catch(error => {
-        this.setError(`Couldn't obtain recommended movies due to server error, please try again later`);
-        errCallback(error);
-      });
   }
 }

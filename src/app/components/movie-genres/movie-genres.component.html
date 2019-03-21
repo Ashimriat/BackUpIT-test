@@ -1,5 +1,7 @@
-<mat-chip-list class="movie-genres-list">
-  <mat-chip *ngFor="let genre of genresList">
-    {{genre}}
-  </mat-chip>
+<mat-chip-list class="movieGenres__genresList">
+  <div *ngFor="let genre of (genresList$ | async); trackBy: listTrackerService.trackList">
+    <mat-chip>
+      {{genre}}
+    </mat-chip>
+  </div>
 </mat-chip-list>

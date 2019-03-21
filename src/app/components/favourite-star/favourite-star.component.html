@@ -1,0 +1,9 @@
+<div
+  class="favouriteStar"
+  (click)="toggleFavourite($event)"
+  [ngClass]="{
+    'favouriteStar--filled': isFavourite,
+    'favouriteStar--empty': !isFavourite
+  }"
+  [matTooltip]="tooltipText"
+></div>

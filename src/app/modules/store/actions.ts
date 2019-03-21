@@ -1,5 +1,5 @@
 import { createActions } from 'redux-actions';
-import {FavouriteMovie, Genre} from '../../../interfaces';
+import { FavouriteMovie, Genre } from '../../../interfaces';
 
 export const { addFavourite, removeFavourite, setCurrentMovie, addGenres, setError } = createActions({
   ADD_FAVOURITE: (favourite: Array<FavouriteMovie>, overwrite: boolean = false) => ({ favourite, overwrite }),

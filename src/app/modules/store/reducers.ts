@@ -1,7 +1,7 @@
 import { handleActions, combineActions } from 'redux-actions';
 import compact from 'lodash.compact';
 import { addFavourite, removeFavourite, setCurrentMovie, addGenres, setError } from './actions';
-import {FavouriteMovie, Genre} from '../../../interfaces';
+import { FavouriteMovie, Genre } from '../../../interfaces';
 
 export interface State {
   favourite: Array<FavouriteMovie>;
@@ -24,9 +24,9 @@ export const rootReducer = handleActions(
         ...state.favourite,
         ...action.payload.favourite
       ];
-       if (action.payload.overwrite) {
-         localStorage.setItem('favourite', JSON.stringify(newFavourite));
-       }
+      if (action.payload.overwrite) {
+        localStorage.setItem('favourite', JSON.stringify(newFavourite));
+      }
       return {
         ...state,
         favourite: compact(newFavourite)

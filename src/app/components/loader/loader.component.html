@@ -1,11 +1,12 @@
 <mat-grid-list
+  class="loader"
   cols="1"
   rowHeight="8:3"
 >
   <mat-grid-tile>
-    <div class="loader">
+    <div class="loader__content">
       <mat-spinner></mat-spinner>
-      <p class="mat-body">
+      <p class="mat-body loader__text">
         {{text}}
       </p>
     </div>

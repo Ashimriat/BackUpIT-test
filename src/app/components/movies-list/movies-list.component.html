@@ -1,0 +1,42 @@
+<app-loader
+  *ngIf="loading; else list"
+  [text]="'Obtaining movies...'"
+></app-loader>
+<ng-template #list>
+  <app-search-field
+    *ngIf="moviesType !== 'RECOMMENDED'"
+    (setSearchValue)="changeSearchValue($event)"
+  ></app-search-field>
+  <div
+    class="noInfo mat-h2"
+    *ngIf="!movies || (movies && movies.results && movies.results.length === 0); else moviesList"
+  >
+    Can't find any movies.
+  </div>
+  <ng-template #moviesList>
+    <mat-grid-list
+      class="moviesList"
+      cols="1"
+      rowHeight="22em"
+    >
+      <mat-grid-tile
+        *ngFor="
+          let movie of movies.results.slice(currentPage * 20, (currentPage + 1) * 20);
+          trackBy: listTrackerService.trackList
+        "
+      >
+        <app-movie-card [movie]="movie"></app-movie-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-paginator
+      class="moviesList__paginator"
+      [length]="movies.total_results"
+      [hidePageSize]="true"
+      [pageSize]="20"
+      [pageIndex]="currentPage"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+  </ng-template>
+</ng-template>
+
+

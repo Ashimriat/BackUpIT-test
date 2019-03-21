@@ -1,0 +1,16 @@
+.favouriteStar
+  font-size: 2.5rem
+  width: 2.5rem
+  height: 2rem
+  display: block
+  overflow: hidden
+  &:hover
+    cursor: pointer
+  &--empty:before, &--filled:before
+    content: "\2605"
+    position: relative
+    top: -15px
+  &--empty:before
+    color: #CBCB9A
+  &--filled:before
+    color: #f2b01e
