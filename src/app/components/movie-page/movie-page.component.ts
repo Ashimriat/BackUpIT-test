@@ -38,9 +38,7 @@ export class MoviePageComponent implements OnInit, OnDestroy {
       )
       .subscribe(movieId => {
         this.movieId = movieId;
-        this.loading = true;
-        this.showRecommended = false;
-        this.recommendedFirstShow = false;
+        this.resetPage();
         try {
           this.preparePageInfo();
         } catch (e) {
@@ -86,5 +84,12 @@ export class MoviePageComponent implements OnInit, OnDestroy {
       this.recommendedFirstShow = true;
     }
     this.showRecommended = !this.showRecommended;
+  }
+
+  private resetPage(): void {
+    this.loading = true;
+    this.showRecommended = false;
+    this.recommendedFirstShow = false;
+    this.movieInfoList = [];
   }
 }
